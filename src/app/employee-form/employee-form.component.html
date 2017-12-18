@@ -1,0 +1,68 @@
+<div class="well well-lg">
+  <form  [formGroup]="form" (ngSubmit)="onSave(form.value)">
+    <div class="form-group">
+      <label for="employeeId">EmployeeId</label>
+      <input type="number"
+      class="form-control" 
+      id="employeeId"  
+      formControlName="id"
+      >
+      <div *ngIf="form.controls['id'].errors && (form.controls['id'].dirty || form.controls['id'].touched)"
+        class="alert alert-danger">
+      <div *ngIf="form.controls['id'].hasError('required')">
+          Id is required.
+      </div>
+      <div *ngIf="form.controls['id'].hasError('cannotMoreThenThree')">
+        Id can contain only 3 Numbers
+      </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="employeeName">EmployeeName</label>
+      <input type="text"
+       class="form-control"
+        id="employeeName"
+        formControlName="name"
+        pattern="^[a-zA-Z]*$">
+        <div *ngIf="form.controls['name'].errors && (form.controls['name'].dirty || form.controls['name'].touched)"
+        class="alert alert-danger">
+        <div *ngIf="form.controls['name'].hasError('required')">
+          Name is required.
+        </div>
+        <div *ngIf="form.controls['name'].hasError('pattern')">
+          Name should contain only Alphabets
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="employeeAge">EmployeeAge</label>
+      <input type="number"
+       class="form-control"
+       id="employeeAge"
+       formControlName="age">
+       <div *ngIf="form.controls['age'].errors && (form.controls['age'].dirty || form.controls['age'].touched)"
+       class="alert alert-danger">
+     <div *ngIf="form.controls['age'].hasError('required')">
+         Age is required.
+     </div>
+     </div>
+    </div>
+    <div class="form-group">
+      <label for="title">Employee Title</label>
+      <select class="txt-box" [(ngModel)]="empTypes" class="form-control" formControlName="employeeType">
+      <option [value]="empTypes" [disabled]="true">Select Option </option>
+      <option *ngFor="let emp of employeeType" [ngValue]="emp.type">
+      {{emp.type}}
+      </option>
+   </select>
+   <div *ngIf="form.controls['employeeType'].errors && (form.controls['employeeType'].dirty || form.controls['employeeType'].touched)"
+   class="alert alert-danger">
+ <div *ngIf="form.controls['employeeType'].hasError('required')">
+     Title is required.
+ </div>
+ </div>
+    </div>
+    <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Add" [disabled]="form.invalid">
+    <!-- <input type="button" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Reset" (click)="resetForm(f)" > -->
+  </form>
+</div>
